@@ -17,8 +17,9 @@ nav li:first-child {
 li > a {
     display: inline;
 }
+div#route {
+    height: fit-content;
+}
 div#home {
-    width: 100vw;
-    height: 100vh;
-    background-color: rgb(222, 205, 237);
+    display: inline;
 }

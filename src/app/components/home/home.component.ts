@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +8,10 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  constructor(private route: ActivatedRoute) {}
 
+  ngOnInit() {
+    
+  }
 }
