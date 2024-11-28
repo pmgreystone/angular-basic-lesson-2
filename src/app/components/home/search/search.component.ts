@@ -13,10 +13,12 @@ interface VideoModel {
   title: String
 }
 
+// CommonModule is used for *ngIf, *ngFor structural directives
+
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [FormsModule,RouterModule,CommonModule],
+  imports: [RouterModule,CommonModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -24,7 +26,7 @@ export class SearchComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private sanitizer: DomSanitizer) {}
 
-  videoIdToUrl(id: String): SafeResourceUrl {
+  videoIdToUrl(id: string): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${id}?autoplay=0`)
   }
 
@@ -32,7 +34,15 @@ export class SearchComponent implements OnInit {
     return this.searchId.length == 0
   }
 
-  searchId: String = ""
+  filterVideoModelsById(): VideoModel[] {
+    const id: string = this.searchId
+    if (id.length > 0) {
+      return this.videoModels.filter((item) => item.id.indexOf(id) != -1)
+    }
+    return []
+  }
+
+  searchId: string = ""
 
   videoModels: VideoModel[] = [
     {id: "JvkX2_46gUY", title: "Angular v19 Developer Event"},
