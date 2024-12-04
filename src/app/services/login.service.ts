@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Profile {
   username: String
@@ -9,19 +11,32 @@ export interface Profile {
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class LoginService implements OnInit {
 
-  profiles: Profile[]
+  profiles: Profile[] = []
   loggedInProfile: Profile | null
+  apiUrl: String = "http://localhost:3000/profiles"
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
+    /*
     this.profiles = [
       { username:"admin", password:"admin", isAdmin:true },
       { username:"greystone", password:"greystone", isAdmin: true },
       { username:"vancouver", password:"vancouver", isAdmin: false },
       { username:"granville", password:"granville", isAdmin: true }
     ]
+    */
     this.loggedInProfile = null
+  }
+  
+  ngOnInit() {
+    this.getProfiles().subscribe((result) => {
+      this.profiles = result
+    })
+  }
+
+  getProfiles(): Observable<Profile[]> {
+    return this.httpClient.get<Profile[]>(this.apiUrl + '/profiles');
   }
 
   tryLogin(username: String, password: String): Profile | null {
