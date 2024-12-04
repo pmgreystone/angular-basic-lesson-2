@@ -20,6 +20,10 @@ li > a {
 div#route {
     height: fit-content;
 }
+div#route #wrapper {
+    color: white;
+    padding: 5px;
+}
 div#home {
     display: inline;
 }

@@ -19,8 +19,8 @@ const homeRoutes: Routes = [
 
 export const routes: Routes = [
     { path: '', component: LoginComponent },
-    { path: 'admin', component: AdminComponent },
-    { path: 'login', component: LoginComponent, canActivate: [adminAuthGuardGuard] },
+    { path: 'admin', component: AdminComponent, canActivate: [adminAuthGuardGuard] },
+    { path: 'login', component: LoginComponent },
     { path: 'home', component: HomeComponent, children: homeRoutes, canActivate: [homeAuthGuardGuard], canActivateChild: [homeAuthGuardGuard] },
     { path: '**', component: PageNotFoundComponent }
 ];
