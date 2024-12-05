@@ -11,11 +11,11 @@ export interface Profile {
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService implements OnInit {
+export class LoginService {
 
-  profiles: Profile[] = []
+  profiles: Profile[]
   loggedInProfile: Profile | null
-  apiUrl: String = "http://localhost:3000/profiles"
+  apiUrl: String = "http://localhost:3000"
 
   constructor(private httpClient: HttpClient) {
     /*
@@ -26,13 +26,21 @@ export class LoginService implements OnInit {
       { username:"granville", password:"granville", isAdmin: true }
     ]
     */
+    this.profiles = []
     this.loggedInProfile = null
   }
-  
-  ngOnInit() {
-    this.getProfiles().subscribe((result) => {
-      this.profiles = result
-    })
+
+  loadProfiles() {
+    this.getProfiles().subscribe(
+      (result: Profile[]) => {
+        this.profiles = result
+        console.log("success")
+      },
+      (error: Error) => {
+        this.profiles = []
+        console.log("error")
+      }
+    )
   }
 
   getProfiles(): Observable<Profile[]> {

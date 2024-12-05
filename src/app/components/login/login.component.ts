@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService, Profile } from '../../services/login.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,13 +10,17 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   username: FormControl = new FormControl('')
   password: FormControl = new FormControl('')
 
   constructor(private loginService: LoginService, private router: Router) {}
 
+  ngOnInit(): void {
+    this.loginService.loadProfiles()
+  }
+  
   tryLogin() {
     if(this.isValid(this.username.value) && this.isValid(this.password.value)) {
       const profile: Profile | null = this.loginService.tryLogin(this.username.value, this.password.value)
