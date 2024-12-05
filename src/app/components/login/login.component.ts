@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService, Profile } from '../../services/login.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StringReversePipe } from '../../pipes/string-reverse.pipe';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,StringReversePipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
